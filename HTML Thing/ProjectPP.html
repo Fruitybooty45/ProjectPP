@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project PP - Official Website</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Project PP</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#modapps">Mod Apps</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <h2>Welcome to Project PP</h2>
+    <p>An immersive gaming experience like no other.</p>
+    <a href="#download" class="btn">Play Now</a>
+  </section>
+
+  <!-- Home -->
+  <section id="home">
+    <h2>About the Game</h2>
+    <p>Project PP is a game where you get to jump around and have fun with your friends.</p>
+  </section>
+
+  <!-- Screenshots -->
+  <section id="screenshots">
+    <h2>Game Screenshots</h2>
+    <img src="Images/Game Screenshot1.png" alt="Gameplay Screenshot 1">
+    <img src="Images/Game Screenshot2.png" alt="Gameplay Screenshot 2">
+    <img src="Images/Game Screenshot3.png" alt="Gameplay Screenshot 3">
+    <img src="Images/Game Screenshot4.png" alt="Gameplay Screenshot 4">
+    <img src="Images/Game Screenshot5.png" alt="Gameplay Screenshot 5">
+  </section>
+
+  <!-- Download -->
+  <section id="download">
+    <h2>Download Project PP</h2>
+    <p>Available on the Meta Quest Store!</p>
+    <a href="https://www.meta.com/en-gb/experiences/project-pp/23910005042027833/" class="btn">Download Now!</a>
+  </section>
+
+  <!-- Mod Apps -->
+   <section id="modapps">
+    <h2>Mod Apps for Project PP</h2>
+    <p>Fill this form out and if we think you are a good fit for the team, you will become a member of our staff team!</p>
+    <form id="moderatorApplication">
+    <label for="discord">Discord Username:</label>
+    <input type="text" id="discord" name="discord" required>
+
+    <label for="message">In 5 sentences tell us why you should be allowed to join the staff team.</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <button type="submit">Send</button>
+    </form>
+
+   </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Wanting to join the discord? Join here!</p> <a href="https://discord.gg/tpMxD3aYJW" class="btn">Discord</a>
+    <p>Have feedback or questions? Reach out at <a href="mailto:projectppinquiries@gmail.com">projectppinquiries@gmail.com</a>.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Project PP. All rights reserved.</p>
+  </footer>
+  <script>
+
+  const navLinks = document.querySelectorAll("nav a");
+  const sections = document.querySelectorAll("section");
+
+  function showSection(id) {
+    sections.forEach(section => {
+      section.classList.remove("active");
+      if (section.id === id) {
+        section.classList.add("active");
+      }
+    });
+  }
+
+  showSection("home");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href").substring(1);
+      showSection(targetId);
+    });
+  });
+</script>
+<script>
+  const webhookURL = "https://discord.com/api/webhooks/1448086421188382790/jXIL0Q5HiC8WPae4s5jdf3uoYkvIYHFT3DEq565zaUOuC4MX64pyTBbnyJey_SsHUH-W";
+
+  document.getElementById("moderatorApplication").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const discord = document.getElementById("discord").value;
+    const message = document.getElementById("message").value;
+
+    const payload = {
+      content: `📝 New Moderator Application:\n**Discord:** ${discord}\n**Response:** ${message}`
+    };
+
+    try {
+      const response = await fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        alert("Application submitted successfully!");
+        document.getElementById("moderatorApplication").reset(); // clear form
+      } else {
+        alert("Error submitting application: " + response.status);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("Error sending application!");
+    }
+  });
+</script>
+</body>
+</html>
