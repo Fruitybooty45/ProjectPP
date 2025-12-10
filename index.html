@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <title>Project PP - Official Website</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,38 +16,35 @@
         <li><a href="#screenshots">Screenshots</a></li>
         <li><a href="#download">Download</a></li>
         <li><a href="#modapps">Mod Apps</a></li>
+        <li><a href="#media">Media</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="hero">
-    <h2>Welcome to Project PP</h2>
-    <p>An immersive gaming experience like no other.</p>
-    <a href="#download" class="btn">Play Now</a>
-  </section>
-
-  <section id="home">
+  <section id="home" class="animate-on-scroll">
     <h2>About the Game</h2>
     <p>Project PP is a game where you get to jump around and have fun with your friends.</p>
   </section>
 
-  <section id="screenshots">
-    <h2>Game Screenshots</h2>
+<section id="screenshots" class="animate-on-scroll">
+  <h2>Game Screenshots</h2>
+  <div class="screenshot-grid">
     <img src="Images/Game Screenshot1.png" alt="Gameplay Screenshot 1">
     <img src="Images/Game Screenshot2.png" alt="Gameplay Screenshot 2">
     <img src="Images/Game Screenshot3.png" alt="Gameplay Screenshot 3">
     <img src="Images/Game Screenshot4.png" alt="Gameplay Screenshot 4">
     <img src="Images/Game Screenshot5.png" alt="Gameplay Screenshot 5">
-  </section>
+  </div>
+</section>
 
-  <section id="download">
-    <h2>Download Project PP</h2>
-    <p>Available on the Meta Quest Store!</p>
-    <a href="https://www.meta.com/en-gb/experiences/project-pp/23910005042027833/" class="btn">Download Now!</a>
-  </section>
+<section id="download" class="animate-on-scroll">
+  <h2>Download Project PP</h2>
+  <p>Available on the Meta Quest Store!</p>
+  <a href="https://www.meta.com/en-gb/experiences/project-pp/23910005042027833/" class="btn">Download Now!</a>
+</section>
 
-   <section id="modapps">
+   <section id="modapps" class="animate-on-scroll">
     <h2>Mod Apps for Project PP</h2>
     <p>Fill this form out and if we think you are a good fit for the team, you will become a member of our staff team!</p>
     <form id="moderatorApplication">
@@ -61,16 +59,45 @@
 
    </section>
 
-  <section id="contact">
+  <section id="contact" class="animate-on-scroll">
     <h2>Contact Us</h2>
-    <p>Wanting to join the discord? Join here!</p> <a href="https://discord.gg/tpMxD3aYJW" class="btn">Discord</a>
     <p>Have feedback or questions? Reach out at <a href="mailto:projectppinquiries@gmail.com">projectppinquiries@gmail.com</a>.</p>
   </section>
 
   <footer>
     <p>&copy; 2025 Project PP. All rights reserved.</p>
   </footer>
-  <script>
+
+  <!-- Media -->
+ <section id="media" class="animate-on-scroll">
+  <h2>Media</h2>
+  <p>Connect with Project PP and our awesome content creators across these platforms:</p>
+
+  <div class="social-links">
+    <a href="https://www.youtube.com/@SupernNinjaGT" target="_blank" class="social-link youtube">
+      <img src="Images/Super Ninja Channel Logo.png" alt="SupernNinjaGT Logo" class="social-icon">
+      YouTube Channel
+    </a>
+
+    <a href="https://discord.gg/tpMxD3aYJW" target="_blank" class="social-link discord">
+      <img src="Images/Discord Logo.png" alt="Discord Logo" class="social-icon">
+      Join Discord
+    </a>
+
+    <a href="mailto:projectppinquiries@gmail.com" class="social-link email">
+      <img src="Images/Gmail Logo.png" alt="Email Logo" class="social-icon">
+      Contact Us
+    </a>
+  </div>
+</section>
+
+  <!-- Lightbox -->
+ <div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<script>
 
   const navLinks = document.querySelectorAll("nav a");
   const sections = document.querySelectorAll("section");
@@ -116,7 +143,7 @@
 
       if (response.ok) {
         alert("Application submitted successfully!");
-        document.getElementById("moderatorApplication").reset(); // clear form
+        document.getElementById("moderatorApplication").reset();
       } else {
         alert("Error submitting application: " + response.status);
       }
@@ -125,6 +152,44 @@
       alert("Error sending application!");
     }
   });
+</script>
+
+<script>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.querySelector(".close");
+
+  document.querySelectorAll("#screenshots img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "block";
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = "none";
+    }
+  });
+</script>
+
+<script>
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  animatedElements.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
